@@ -25,25 +25,202 @@ const projects = (await getCollection('work'))
 <BaseLayout>
 	<div class="stack gap-20 lg:gap-48">
 		<div class="wrapper stack gap-8 lg:gap-20">
-			<header class="hero">
-				<Hero
-					title="Hello, my name is Jeanine White"
-					tagline="I am a Creative Developer who is currently based in Portland, Oregon."
-					align="start"
-				>
-					<div class="roles">
-						<Pill><Icon icon="code" size="1.33em" /> Developer</Pill>
-						<Pill><Icon icon="microphone-stage" size="1.33em" /> Speaker</Pill>
-						<Pill><Icon icon="pencil-line" size="1.33em" /> Writer</Pill>
-					</div>
-				</Hero>
+			<header class="hero-custom">
+				<!-- Hello Bar -->
+				<div class="hello-bar">
+					<span class="hello-badge" aria-hidden="true">👋 Hi!</span>
+					<span class="hello-text">
+					I’m <strong>Juni Salman</strong> – Visual Designer with <strong>5+ Years</strong> of Experience
+					</span>
+				</div>
 
-				<img
-					alt="Jeanine White smiling in a red plaid shirt and tortoise shell glasses"
-					width="480"
-					height="620"
-					src="/assets/portrait.jpg"
-				/>
+				<!-- Main Headline -->
+				<div class="hero-copy">
+					<h1 class="headline">
+					Creative Strategies to<br />
+					Enhance Your Design<br />
+					<span class="accent" id="accent-rotator" aria-live="polite">Social Media</span><span class="caret" aria-hidden="true"></span>
+					</h1>
+					<p class="subtext">
+					Design is not merely about visuals; it’s fundamentally about conveying your story.
+					</p>
+
+					<div class="cta-row">
+					<a
+						class="btn-upwork"
+						href="https://www.upwork.com/freelancers/~010281856c352ab60d"
+						target="_blank"
+						rel="noopener"
+					>
+						<!-- Simple UP mark; boleh hapus SVG kalau mau teks saja -->
+						<svg width="28" height="28" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+						<path d="M22.9 10.1c-2 0-3.7 1.6-3.9 3.6-1-.9-2-2.2-2.8-3.8V9h-3v6.7c0 1.2-.9 2.1-2.1 2.1s-2.1-.9-2.1-2.1V9H6v6.7c0 2.9 2.3 5.2 5.1 5.2 2 0 3.8-1.1 4.6-2.8.6.6 1.3 1.2 2 1.7v3.1h3v-3.9c2.9-.3 5.1-2.7 5.1-5.6 0-3.1-2.5-5.4-5.1-5.4zm0 8c-1.3 0-2.4-.8-2.8-2 .2-1.6 1.6-2.7 3.1-2.5 1.3.2 2.2 1.3 2.2 2.6 0 1.1-.7 2.1-1.7 2.5-.2.2-.5.3-.8.4z" fill="currentColor"/>
+						</svg>
+						<span>HIRE Me on Upwork!</span>
+					</a>
+
+					<a class="text-link" href="/work/">View my Portfolio</a>
+					</div>
+				</div>
+				<!-- Portrait Image -->
+
+				<div class="portrait-wrap" id="portrait-wrap">
+						<img
+							class="hero-portrait"
+							src="/assets/potrait_juni.jpg"
+							alt="Juni Salman"
+							width="480"
+							height="640"
+						/>
+				</div>
+				<script type="module">
+					const wrap = document.getElementById('portrait-wrap');
+					if (wrap) {
+						const img = wrap.querySelector('.hero-portrait');
+
+						// Matikan interaksi di perangkat sentuh / pointer kasar
+						const coarse = window.matchMedia('(pointer: coarse)').matches;
+						const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+						if (!coarse && !reduced) enableParallax();
+
+						function enableParallax(){
+						// batas gerak
+						const MAX_TX = 12;   // px horizontal
+						const MAX_TY = 10;   // px vertical
+						const MAX_RX = 6;    // deg tilt X
+						const MAX_RY = 6;    // deg tilt Y
+
+						let rect, targetX = 0, targetY = 0, tRX = 0, tRY = 0;
+						let curX = 0, curY = 0, cRX = 0, cRY = 0;
+						let rafId = 0;
+						const lerp = (a,b,n)=>a+(b-a)*n;
+
+						function onEnter(){
+							rect = wrap.getBoundingClientRect();
+							wrap.classList.add('is-hover');
+							loop(); // mulai RAF
+						}
+						function onMove(e){
+							// posisi relatif 0..1
+							const x = (e.clientX - rect.left) / rect.width;
+							const y = (e.clientY - rect.top) / rect.height;
+
+							// mapping ke batas
+							targetX = (x - 0.5) * 2 * MAX_TX;          // -MAX..MAX
+							targetY = (y - 0.5) * 2 * MAX_TY;
+							tRY     = (x - 0.5) * 2 * MAX_RY;          // rotY: kiri(-) kanan(+)
+							tRX     = -(y - 0.5) * 2 * MAX_RX;         // rotX: atas(+), bawah(-)
+
+							wrap.classList.add('is-moving');
+						}
+						function onLeave(){
+							wrap.classList.remove('is-hover');
+							wrap.classList.remove('is-moving');
+							// balik ke netral
+							targetX = targetY = tRX = tRY = 0;
+							if (!rafId) loop(); // pastikan baliknya halus
+						}
+
+						function loop(){
+							// easing
+							curX = lerp(curX, targetX, 0.12);
+							curY = lerp(curY, targetY, 0.12);
+							cRX  = lerp(cRX,  tRX,    0.12);
+							cRY  = lerp(cRY,  tRY,    0.12);
+
+							img.style.transform =
+							`translate3d(${curX}px, ${curY}px, 0) rotateX(${cRX}deg) rotateY(${cRY}deg)`;
+
+							const stillMoving =
+							Math.abs(curX-targetX)>0.2 || Math.abs(curY-targetY)>0.2 ||
+							Math.abs(cRX-tRX)>0.2 || Math.abs(cRY-tRY)>0.2;
+
+							if (stillMoving){
+							rafId = requestAnimationFrame(loop);
+							} else {
+							// stop RAF; kalau tidak hover, kembalikan animasi float
+							rafId = 0;
+							if (!wrap.classList.contains('is-hover')){
+								img.style.transform = '';          // reset
+							}
+							}
+						}
+
+						wrap.addEventListener('mouseenter', onEnter);
+						wrap.addEventListener('mousemove', onMove);
+						wrap.addEventListener('mouseleave', onLeave);
+						}
+					}
+				</script>
+
+				<script type="module">
+					const words = [
+						"Social Media",
+						"E-book Layout",
+						"Social media post",
+						"Static Ads",
+						"Product listing",
+						"Printed Product"
+					];
+
+					const el = document.getElementById("accent-rotator");
+
+					const TYPE = 65;
+					const DELETE = 45;
+					const HOLD = 1200;
+					const GAP  = 350;
+
+					const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+					const NBSP = "\u00A0";
+
+					// (opsional) kunci lebar minimum berdasar kata terpanjang
+					const longest = words.reduce((m, w) => Math.max(m, w.length), 0);
+					if (el) el.style.minWidth = `${longest}ch`;
+
+					function sleep(ms){ return new Promise(r => setTimeout(r, ms)); }
+
+					async function type(text){
+						if (reduced){ el.textContent = text; return; }
+						// kalau sebelumnya NBSP, kosongkan dulu
+						if (el.textContent === NBSP) el.textContent = "";
+						el.parentElement?.classList.add("typing");
+						for (let i = 0; i <= text.length; i++){
+						el.textContent = text.slice(0, i);
+						await sleep(TYPE);
+						}
+						el.parentElement?.classList.remove("typing");
+					}
+
+					async function erase(text){
+						if (reduced){ return; }
+						el.parentElement?.classList.add("typing");
+						// hapus sampai menyisakan 0 karakter, lalu ganti NBSP (agar tinggi tetap ada)
+						for (let i = text.length; i >= 1; i--){
+						el.textContent = text.slice(0, i - 1);
+						await sleep(DELETE);
+						}
+						el.textContent = NBSP; // <-- inilah penopang line
+						el.parentElement?.classList.remove("typing");
+					}
+
+					async function loop(){
+						let i = 0;
+						el.textContent = words[0];
+						await sleep(HOLD);
+						while (true){
+						i = (i + 1) % words.length;
+						await erase(el.textContent);
+						el.textContent = NBSP; // biar line tetap ada
+						await sleep(GAP);
+						await type(words[i]);
+						await sleep(HOLD);
+						}
+					}
+
+					if (el) loop();
+				</script>
+
+	
 			</header>
 
 			<Skills />
@@ -246,4 +423,205 @@ const projects = (await getCollection('work'))
 			height: 9.5rem;
 		}
 	}
+/* === HERO CLEAN VERSION === */
+
+.hero-custom {
+  display: grid;
+  gap: 1.75rem;
+  max-width: 1100px;
+  margin-inline: auto;
+  padding: clamp(1.25rem, 4vw, 2.5rem) 1rem 2.5rem;
+}
+
+/* Mobile */
+@media (max-width: 899px) {
+  .hero-custom {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "hello"
+      "copy"
+      "pic";
+  }
+}
+
+/* Desktop */
+@media (min-width: 900px) {
+  .hero-custom {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+    grid-template-areas:
+      "hello pic"
+      "copy  pic";
+    align-items: start;
+  }
+}
+
+/* --- Hello Bar --- */
+.hello-bar {
+  grid-area: hello;
+  display: inline-flex;
+  align-items: center;
+  gap: .75rem;
+  padding: .5rem .9rem;
+  border: 2px solid rgba(0,0,0,.25);
+  border-radius: 999px;
+  background: rgba(255,255,255,.35);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+
+.hello-badge {
+  padding: .35rem .7rem;
+  border-radius: 999px;
+  background: #ffa318;
+  color: #111;
+  font-weight: 700;
+  transition: .15s transform, .15s filter, .15s box-shadow;
+  cursor: default;
+}
+.hello-badge:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.05);
+  box-shadow: 0 6px 16px rgba(255,163,24,.35);
+}
+
+.hello-text {
+  color: #1b1b1b;
+}
+
+/* --- Copy block --- */
+.hero-copy {
+  grid-area: copy;
+}
+.hero-copy .headline {
+  margin: .25rem 0 0;
+  font-size: clamp(2.2rem, 6vw, 4.5rem);
+  line-height: 1.05;
+  letter-spacing: -.01em;
+  color: #1b1b1b;
+}
+.hero-copy .headline .accent {
+  color: #f59e0b;
+}
+.hero-copy .subtext {
+  margin-top: 1rem;
+  color: #3a3a3a;
+  font-size: clamp(1rem, 1.6vw, 1.125rem);
+}
+
+/* --- CTA --- */
+.cta-row {
+  display: flex;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: 1.25rem;
+}
+
+.btn-upwork {
+  display: inline-flex;
+  align-items: center;
+  gap: .6rem;
+  padding: .9rem 1.1rem;
+  border-radius: 1rem;
+  background: #16a34a;
+  color: #fff !important;
+  font-weight: 800;
+  text-decoration: none;
+  box-shadow: 0 8px 20px rgba(22,163,74,.25);
+  transition: background .25s ease, color .25s ease,
+              transform .15s ease, box-shadow .15s ease;
+}
+.btn-upwork:hover {
+  background: #000;
+  color: #fff !important;
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px rgba(0,0,0,.25);
+  filter: none;
+}
+
+.text-link {
+  font-weight: 600;
+  text-decoration: underline;
+  color: #1b1b1b;
+}
+.text-link:hover {
+  opacity: .85;
+}
+
+/* --- Portrait --- */
+.hero-portrait {
+  grid-area: pic;
+  justify-self: end;
+  width: 100%;
+  max-width: 420px;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  object-position: top;
+  border-radius: 2.5rem;
+  box-shadow: 0 12px 32px rgba(0,0,0,.18);
+}
+.caret{
+  position: relative;
+  display: inline-block;
+  width: .08em;
+  height: 1em;
+  margin-left: .12em;
+  background: currentColor;
+  top: 0;                /* pastikan sejajar baseline */
+  vertical-align: text-bottom;
+  animation: caretBlink 1s steps(1,end) infinite;
+}
+@keyframes caretBlink { 50% { opacity: 0; } }
+.typing .caret { animation-duration: .6s; }
+
+/* Container foto */
+.portrait-wrap{
+  grid-area: pic;
+  justify-self: end;
+  perspective: 800px;          /* buat tilt terasa 3D */
+  width: 100%;
+  max-width: 420px;
+}
+
+/* Foto */
+.hero-portrait{
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  object-position: top;
+  border-radius: 2.5rem;
+  box-shadow: 0 12px 32px rgba(0,0,0,.18);
+
+  /* idle floating */
+  animation: floatY 6.5s ease-in-out infinite;
+  transform: translate3d(0,0,0);
+  will-change: transform;
+}
+
+/* Animasi melayang pelan */
+@keyframes floatY{
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
+}
+
+/* Saat diparallax oleh JS, kita pause animasi CSS biar nggak tabrakan */
+.portrait-wrap.is-moving .hero-portrait{
+  animation: none;
+}
+
+/* Smooth kalau pointer keluar */
+.hero-portrait{
+  transition: transform .18s ease-out, box-shadow .18s ease-out;
+}
+.portrait-wrap.is-hover .hero-portrait{
+  box-shadow: 0 16px 40px rgba(0,0,0,.22);
+}
+
+/* Aksesibilitas: hormati prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce){
+  .hero-portrait{ animation: none; transition: none; }
+}
+
 </style>
