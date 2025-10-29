@@ -74,6 +74,16 @@ const projects = (await getCollection('work'))
 						/>
 				</div>
 				<script type="module">
+					import { initHero } from "/src/animations/hero";
+					import { initSections } from "/src/animations/sections";
+
+					// aman dipanggil langsung; modul hanya jalan di client
+					initHero();
+					initSections();
+				</script>
+
+				<!-- Parallax Script -->
+				<script type="module">
 					const wrap = document.getElementById('portrait-wrap');
 					if (wrap) {
 						const img = wrap.querySelector('.hero-portrait');
@@ -155,7 +165,7 @@ const projects = (await getCollection('work'))
 
 				<script type="module">
 					const words = [
-						"Social Media",
+						"Canva PRO",
 						"E-book Layout",
 						"Social media post",
 						"Static Ads",
@@ -497,7 +507,7 @@ const projects = (await getCollection('work'))
   font-size: clamp(2.2rem, 6vw, 4.5rem);
   line-height: 1.05;
   letter-spacing: -.01em;
-  color: #1b1b1b;
+  color: var(--gray-0);
 }
 .hero-copy .headline .accent {
   color: #f59e0b;
