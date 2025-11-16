@@ -1,0 +1,53 @@
+---
+// Definisikan properti yang akan diterima komponen
+const { quote, name, title, avatar } = Astro.props;
+---
+
+<li class="testimonial-card">
+  <blockquote>
+    <p>{quote}</p>
+  </blockquote>
+  <div class="client-info">
+    <img src={avatar} alt={name} class="client-avatar" width="60" height="60" />
+    <div>
+      <p class="client-name">{name}</p>
+      <p class="client-title">{title}</p>
+    </div>
+  </div>
+</li>
+
+<style>
+  .testimonial-card {
+    testimonial-card {
+    /* Menambahkan style untuk memisahkannya dengan kotak subtle */
+    
+    background: var(--gray-950); 
+    border: 1px solid var(--gray-800); /* Border Abu-abu Gelap Halus */
+    background: var(--gradient-subtle); /* Latar belakang gradien halus */
+    box-shadow: var(--shadow-sm); /* Bayangan kecil */
+
+    /* Style yang sudah ada */
+    padding: 1.5rem;
+    border-radius: 1rem;
+    /* Pastikan tinggi kartu sama */
+    height: 100%; 
+  }
+    /* ... style lainnya ... */
+  }
+  .client-info {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+    align-items: center;
+  }
+  .client-avatar {
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  .client-name {
+    font-weight: 700;
+  }
+  .client-title {
+    color: var(--gray-500);
+  }
+</style>

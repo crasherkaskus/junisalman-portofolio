@@ -1,0 +1,51 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PortfolioPreview from '../../components/PortfolioPreview.astro';
+import Grid from '../../components/Grid.astro'; // Asumsi Anda punya komponen Grid
+
+// 1. Fungsi getStaticPaths(): Memberitahu Astro URL apa saja yang harus dibuat
+export async function getStaticPaths() {
+    // Ambil semua proyek untuk mendapatkan semua tag yang unik
+    const allProjects = await getCollection('work');
+    
+    // Kumpulkan semua tag unik dari semua proyek
+    const allTags = allProjects.flatMap(project => project.data.tags);
+    const uniqueTags = [...new Set(allTags)]; // Hanya ambil yang unik
+    
+    // Format tag untuk URL (misalnya, "E-book Layout" menjadi "e-book-layout")
+    return uniqueTags.map(tag => {
+        const tagSlug = tag.toLowerCase().replace(/\s+/g, '-');
+        return {
+            params: { tag: tagSlug },
+            props: { tag: tag, projects: allProjects.filter(project => project.data.tags.includes(tag)) }
+        };
+    });
+}
+
+// 2. Ambil data yang sudah difilter dari props
+const { tag, projects } = Astro.props;
+// Urutkan proyek berdasarkan tanggal publikasi terbaru
+const sortedProjects = projects.sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());
+---
+
+<BaseLayout title={`Portofolio ${tag}`}>
+    <div class="wrapper stack gap-8 lg:gap-20">
+        <header class="section-header stack gap-2 lg:gap-4" style="text-align: center;">
+            <h1 style="text-transform: capitalize;">All Project {tag}</h1>
+            <p>All Project with Category {tag}.</p>
+        </header>
+
+        <main class="gallery">
+            <Grid variant="offset">
+                {
+                    sortedProjects.map((project) => (
+                        <li>
+                            <PortfolioPreview project={project} />
+                        </li>
+                    ))
+                }
+            </Grid>
+        </main>
+    </div>
+</BaseLayout>

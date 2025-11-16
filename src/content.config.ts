@@ -4,7 +4,7 @@ import { glob } from 'astro/loaders';
 export const collections = {
 	work: defineCollection({
 		// Load Markdown files in the src/content/work directory.
-		loader: glob({ base: './src/content/work', pattern: '**/*.md' }),
+		loader: glob({ base: './src/content/work', pattern: '**/*.{md,mdx}' }),
 		schema: z.object({
 			title: z.string(),
 			description: z.string(),

@@ -10,14 +10,48 @@ import Icon from '../components/Icon.astro';
 import Pill from '../components/Pill.astro';
 import PortfolioPreview from '../components/PortfolioPreview.astro';
 import Skills from '../components/Skills.astro';
+import TestimonialCard from '../components/TestimonialCard.astro';
 // Layout import — provides basic page elements: <head>, <nav>, <footer> etc.
 import BaseLayout from '../layouts/BaseLayout.astro';
 
 // Content Fetching: List four most recent work projects
-const projects = (await getCollection('work'))
-	.sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
-	.slice(0, 4);
+// 1. Ambil SEMUA proyek
+const allProjects = await getCollection('work');
 
+// 2. Tiga Kategori Portofolio yang Diinginkan
+const graphicDesign = allProjects.filter(project => 
+  project.data.tags.includes('Graphic Design')
+).slice(0, 4); // Ambil 4 teratas atau sesuaikan jumlahnya
+
+const ebookLayout = allProjects.filter(project => 
+  project.data.tags.includes('Ebook Layout')
+).slice(0, 4);
+
+const pitchDeckDesign = allProjects.filter(project => 
+  project.data.tags.includes('Pitch Deck')
+).slice(0, 4);
+// Data Mentions lama diganti dengan data Testimonial
+const testimonials = [
+  { 
+    quote: "Juni delivered our new branding within a tight deadline and exceeded expectations.", 
+    name: "Alex Johnson", 
+    title: "Marketing Specialist, Upwork", 
+    avatar: "/assets/avatars/John.jpg" 
+  },
+  { 
+    quote: "The final e-book layout was clean, professional, and visually stunning.", 
+    name: "Maria Sanchez", 
+    title: "Marketing Manager", 
+    avatar: "/assets/avatars/Laura.jpg" 
+  },
+  { 
+    quote: "Our pitch deck secured funding thanks to the clarity of the design.", 
+    name: "David Lee", 
+    title: "Founder, Liva.corp", 
+    avatar: "/assets/avatars/Lee.jpg" 
+  },
+  // Tambahkan testimonial lainnya di sini
+];
 // Full Astro Component Syntax:
 // https://docs.astro.build/basics/astro-components/
 ---
@@ -74,8 +108,8 @@ const projects = (await getCollection('work'))
 						/>
 				</div>
 				<script type="module">
-					import { initHero } from "/src/animations/hero";
-					import { initSections } from "/src/animations/sections";
+					import { initHero } from "/src/animations/hero.ts";
+					import { initSections } from "/src/animations/section.ts";
 
 					// aman dipanggil langsung; modul hanya jalan di client
 					initHero();
@@ -237,23 +271,75 @@ const projects = (await getCollection('work'))
 		</div>
 
 		<main class="wrapper stack gap-20 lg:gap-48">
-			<section class="section with-background with-cta">
-				<header class="section-header stack gap-2 lg:gap-4">
-					<h3>Selected Work</h3>
-					<p>Take a look below at some of my featured work for clients from the past few years.</p>
-				</header>
 
-				<div class="gallery">
-					<Grid variant="offset">
-						{
-							projects.map((project) => (
-								<li>
-									<PortfolioPreview project={project} />
-								</li>
-							))
-						}
-					</Grid>
-				</div>
+				<section class="section with-background with-cta">
+					<header class="section-header stack gap-2 lg:gap-4">
+						<h3>Graphic Design Work</h3>
+						<p>Look at my Latest work on Graphic Design Projects.</p>
+					</header>
+
+					<div class="gallery">
+						<Grid variant="offset">
+							{
+								graphicDesign.map((project) => ( // <-- Menggunakan array yang sudah difilter
+									<li>
+										<PortfolioPreview project={project} />
+									</li>
+								))
+							}
+						</Grid>
+					</div>
+
+					<div class="cta">
+						<CallToAction href="/work/graphic-design">View All Graphic Design</CallToAction>
+					</div>
+				</section>
+
+				<section class="section with-background bg-variant with-cta">
+					<header class="section-header stack gap-2 lg:gap-4">
+						<h3>E-book Layouts</h3>
+						<p>These are few of my recent works on book layout projects.</p>
+					</header>
+
+					<div class="gallery">
+						<Grid variant="small">
+							{
+								ebookLayout.map((project) => ( // <-- Menggunakan array yang sudah difilter
+									<li>
+										<PortfolioPreview project={project} />
+									</li>
+								))
+							}
+						</Grid>
+					</div>
+					<div class="cta">
+						<CallToAction href="/work/ebook-layout">View All E-book</CallToAction>
+					</div>
+				</section>
+
+				<section class="section with-background with-cta">
+					<header class="section-header stack gap-2 lg:gap-4">
+						<h3>Pitch Deck Design</h3>
+						<p>My lates Presentation Pitch Deck work projects</p>
+					</header>
+
+					<div class="gallery">
+						<Grid variant="offset">
+							{
+								pitchDeckDesign.map((project) => ( // <-- Menggunakan array yang sudah difilter
+									<li>
+										<PortfolioPreview project={project} />
+									</li>
+								))
+							}
+						</Grid>
+					</div>
+        <div class="cta">
+            <CallToAction href="/work/pitch-deck">View All Pitch Deck</CallToAction>
+        </div>
+    </section>
+
+    </main>
 
 				<div class="cta">
 					<CallToAction href="/work/">
@@ -265,20 +351,21 @@ const projects = (await getCollection('work'))
 
 			<section class="section with-background bg-variant">
 				<header class="section-header stack gap-2 lg:gap-4">
-					<h3>Mentions</h3>
-					<p>
-						I have been fortunate enough to receive praise for my work in several publications. Take
-						a look below to learn more.
-					</p>
+					<h3>Testimonials</h3>
+					<p>Look What they say about me</p>
 				</header>
 
 				<div class="gallery">
 					<Grid variant="small">
 						{
-							['Medium', 'BuzzFeed', 'The Next Web', 'awwwards.', 'TechCrunch'].map((brand) => (
-								<li class="mention-card">
-									<p>{brand}</p>
-								</li>
+							// Gunakan array baru dan komponen baru
+							testimonials.map((t) => (
+								<TestimonialCard 
+									quote={t.quote} 
+									name={t.name} 
+									title={t.title} 
+									avatar={t.avatar}
+								/>
 							))
 						}
 					</Grid>
