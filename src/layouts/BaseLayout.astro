@@ -22,6 +22,7 @@ const { title, description } = Astro.props;
 	<body>
 		<div class="stack backgrounds">
 			<Nav />
+			<div class="content-wrapper"></div>
 			<slot />
 			<Footer />
 		</div>
@@ -66,6 +67,11 @@ const { title, description } = Astro.props;
 				--bg-image-subtle-2: url('/assets/backgrounds/bg-subtle-2-dark-800w.jpg');
 				--bg-image-footer: url('/assets/backgrounds/bg-footer-dark-800w.jpg');
 			}
+			.content-wrapper {
+				/* Tinggi Header Nav Anda adalah sekitar 90px - 100px */
+				/* Beri ruang yang cukup untuk header yang fixed */
+				padding-top: 100px; 
+			}
 
 			@media (min-width: 50em) {
 				:root {
@@ -85,6 +91,10 @@ const { title, description } = Astro.props;
 					--bg-image-subtle-1: url('/assets/backgrounds/bg-subtle-1-dark-1440w.jpg');
 					--bg-image-subtle-2: url('/assets/backgrounds/bg-subtle-2-dark-1440w.jpg');
 					--bg-image-footer: url('/assets/backgrounds/bg-footer-dark-1440w.jpg');
+				}
+				/* Sesuaikan padding di desktop, karena navigasi Anda mungkin lebih tinggi atau lebih rendah */
+				.content-wrapper {
+					padding-top: 120px; /* Coba nilai yang lebih besar untuk desktop */
 				}
 			}
 

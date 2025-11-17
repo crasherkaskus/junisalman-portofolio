@@ -51,6 +51,18 @@ const testimonials = [
     avatar: "/assets/avatars/Lee.jpg" 
   },
   // Tambahkan testimonial lainnya di sini
+  { 
+    quote: "The Layout book Juni created really get my sales sky rocketed.", 
+    name: "Sarah Orwell", 
+    title: "Amazon KDP Author", 
+    avatar: "/assets/avatars/sarah.jpg" 
+  },
+  { 
+    quote: "My social media post getting more engagement after Juni change the design.", 
+    name: "Elena Markova", 
+    title: "Social media influencerr", 
+    avatar: "/assets/avatars/elena.jpg" 
+  },
 ];
 // Full Astro Component Syntax:
 // https://docs.astro.build/basics/astro-components/
@@ -302,7 +314,7 @@ const testimonials = [
 					</header>
 
 					<div class="gallery">
-						<Grid variant="small">
+						<Grid variant="offset">
 							{
 								ebookLayout.map((project) => ( // <-- Menggunakan array yang sudah difilter
 									<li>
@@ -501,7 +513,7 @@ const testimonials = [
 
 	/* ====================================================== */
 
-	.mention-card {
+	.testimonial {
 		display: flex;
 		height: 7rem;
 		justify-content: center;
