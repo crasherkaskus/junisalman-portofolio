@@ -2,7 +2,7 @@
 title: "First post of this Blog"
 description: "what is a good design"
 pubDate: "Jul 08 2022"
-heroImage: "/public/assets/modern.jfif"
+heroImage: "/public/assets/modern.jpg"
 ---
 
  <!DOCTYPE html>

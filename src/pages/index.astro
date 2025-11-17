@@ -35,7 +35,7 @@ const testimonials = [
   { 
     quote: "Juni delivered our new branding within a tight deadline and exceeded expectations.", 
     name: "Alex Johnson", 
-    title: "Marketing Specialist, Upwork", 
+    title: "Marketing Specialist, TechSolutions", 
     avatar: "/assets/avatars/John.jpg" 
   },
   { 
@@ -733,4 +733,10 @@ const testimonials = [
   .hero-portrait{ animation: none; transition: none; }
 }
 
+/* Add this to style testimonial cards */
+:global(.testimonial-card) {
+        border: 1px solid var(--gray-800);
+        border-radius: 1.5rem;
+        box-shadow: var(--shadow-sm);
+    }
 </style>

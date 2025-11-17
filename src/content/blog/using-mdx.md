@@ -2,7 +2,7 @@
 title: "Imposter Syndrome in a Visual World"
 description: "When Your Portfolio Doesn't Feel Like Your Own"
 pubDate: "Jun 01 2024"
-heroImage: "/public/assets/impostor.jfif"
+heroImage: "/public/assets/impostor.jpg"
 ---
 
 <!DOCTYPE html>

@@ -2,7 +2,7 @@
 title: "What Happens When Your Creative Well Runs Dry"
 description: "Coping with the Panic, Pressure, and the Pursuit of Innovation"
 pubDate: "Jul 22 2022"
-heroImage: "/public/assets/clarity.jfif"
+heroImage: "/public/assets/clarity.jpg"
 ---
 
 <!DOCTYPE html>

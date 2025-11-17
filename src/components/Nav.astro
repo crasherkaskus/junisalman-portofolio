@@ -170,6 +170,7 @@ const isCurrentPage = (href: string) => {
 </script>
 
 <script>
+    let closeTimeout: number | null = null;
     document.addEventListener('DOMContentLoaded', () => {
         const workDropdown = document.getElementById('work-dropdown');
         const workLink = workDropdown?.querySelector('.link');
