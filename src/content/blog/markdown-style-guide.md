@@ -2,7 +2,7 @@
 title: "When Creative Pressure Becomes Overwhelming"
 description: "The Mental Toll of Balancing Quality and Tight Timelines"
 pubDate: "Jun 19 2024"
-heroImage: "/public/assets/projection.jpg"
+heroImage: "../../assets/projection.jpg"
 ---
 
 <!DOCTYPE html>

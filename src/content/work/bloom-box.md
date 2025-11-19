@@ -1,7 +1,7 @@
 ---
 title: Pitch-deck
 publishDate: 2019-12-01 00:00:00
-img: /assets/presentation.jpg
+img: ../../assets/presentation.jpg
 img_alt: Developer team on Evolve Gym want to pitch about their plan to build mobile apps
 description: |
   Developer team on Evolve Gym want to pitch about their plan to build mobile apps
@@ -12,7 +12,7 @@ tags:
 ---
 
 ## Presentation Design
-![presentation mockup](/assets/presentation-1.jpg)
+![presentation mockup](../../assets/presentation-1.jpg)
 
 ## Live Preview
 <div style="position: relative; width: 100%; height: 0; padding-top: 56.2500%;

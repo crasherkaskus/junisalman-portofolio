@@ -1,7 +1,7 @@
 ---
 title: Book Layout
 publishDate: 2020-03-02 00:00:00
-img: /assets/book/spiritual-awakening.jpg
+img: ../../assets/book/spiritual-awakening.jpg
 img_alt: yellow spiritual book cover
 description: |
  The client need a Lead Magnet ebook based on her youtube niche, i turn the brief into an e-book ready to use as lead magnet on the youtube channel
@@ -11,10 +11,10 @@ tags:
   - Image Editing
 ---
 ## Project final product
-![Spiritual book mockup 1](/assets/book/5.jpg)
-![Spiritual book mockup 1](/assets/book/6.jpg)
-![Spiritual book mockup 1](/assets/book/7.jpg)
-![Spiritual book mockup 1](/assets/book/8.jpg)
+![Spiritual book mockup 1](../../assets/book/5.jpg)
+![Spiritual book mockup 1](../../assets/book/6.jpg)
+![Spiritual book mockup 1](../../assets/book/7.jpg)
+![Spiritual book mockup 1](../../assets/book/8.jpg)
 ## Live Preview
 <div style="position: relative; width: 100%; height: 0; padding-top: 141.4286%;
  padding-bottom: 0; box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 0.9em; overflow: hidden;

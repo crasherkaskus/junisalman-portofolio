@@ -2,13 +2,13 @@
 title: "First post of this Blog"
 description: "what is a good design"
 pubDate: "Jul 08 2022"
-heroImage: "/public/assets/modern.jpg"
+heroImage: "../../assets/modern.jpg"
 ---
 
  <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>What Is 'Good' Design? An Insider's View</title>
     <!-- Load Tailwind CSS -->

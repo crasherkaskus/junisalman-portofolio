@@ -1,68 +1,77 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection } from "astro:content";
 // Component Imports
-import CallToAction from '../components/CallToAction.astro';
+import CallToAction from "../components/CallToAction.astro";
 // Page section components
-import ContactCTA from '../components/ContactCTA.astro';
-import Grid from '../components/Grid.astro';
-import Hero from '../components/Hero.astro';
-import Icon from '../components/Icon.astro';
-import Pill from '../components/Pill.astro';
-import PortfolioPreview from '../components/PortfolioPreview.astro';
-import Skills from '../components/Skills.astro';
-import TestimonialCard from '../components/TestimonialCard.astro';
+import ContactCTA from "../components/ContactCTA.astro";
+import Grid from "../components/Grid.astro";
+import Hero from "../components/Hero.astro";
+import Icon from "../components/Icon.astro";
+import Pill from "../components/Pill.astro";
+import PortfolioPreview from "../components/PortfolioPreview.astro";
+import Skills from "../components/Skills.astro";
+import TestimonialCard from "../components/TestimonialCard.astro";
 // Layout import — provides basic page elements: <head>, <nav>, <footer> etc.
-import BaseLayout from '../layouts/BaseLayout.astro';
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { Image } from "astro:assets";
+
+// Asset Imports
+import portraitJuni from "../assets/potrait_juni.jpg";
+import alexAvatar from "../assets/avatars/John.jpg";
+import mariaAvatar from "../assets/avatars/Laura.jpg";
+import davidAvatar from "../assets/avatars/Lee.jpg";
+import sarahAvatar from "../assets/avatars/sarah.jpg";
+import elenaAvatar from "../assets/avatars/elena.jpg";
 
 // Content Fetching: List four most recent work projects
 // 1. Ambil SEMUA proyek
-const allProjects = await getCollection('work');
+const allProjects = await getCollection("work");
 
 // 2. Tiga Kategori Portofolio yang Diinginkan
-const graphicDesign = allProjects.filter(project => 
-  project.data.tags.includes('Graphic Design')
-).slice(0, 4); // Ambil 4 teratas atau sesuaikan jumlahnya
+const graphicDesign = allProjects
+	.filter((project) => project.data.tags.includes("Graphic Design"))
+	.slice(0, 4); // Ambil 4 teratas atau sesuaikan jumlahnya
 
-const ebookLayout = allProjects.filter(project => 
-  project.data.tags.includes('Ebook Layout')
-).slice(0, 4);
+const ebookLayout = allProjects
+	.filter((project) => project.data.tags.includes("Ebook Layout"))
+	.slice(0, 4);
 
-const pitchDeckDesign = allProjects.filter(project => 
-  project.data.tags.includes('Pitch Deck')
-).slice(0, 4);
+const pitchDeckDesign = allProjects
+	.filter((project) => project.data.tags.includes("Pitch Deck"))
+	.slice(0, 4);
 // Data Mentions lama diganti dengan data Testimonial
 const testimonials = [
-  { 
-    quote: "Juni delivered our new branding within a tight deadline and exceeded expectations.", 
-    name: "Alex Johnson", 
-    title: "Marketing Specialist, TechSolutions", 
-    avatar: "/assets/avatars/John.jpg" 
-  },
-  { 
-    quote: "The final e-book layout was clean, professional, and visually stunning.", 
-    name: "Maria Sanchez", 
-    title: "Marketing Manager", 
-    avatar: "/assets/avatars/Laura.jpg" 
-  },
-  { 
-    quote: "Our pitch deck secured funding thanks to the clarity of the design.", 
-    name: "David Lee", 
-    title: "Founder, Liva.corp", 
-    avatar: "/assets/avatars/Lee.jpg" 
-  },
-  // Tambahkan testimonial lainnya di sini
-  { 
-    quote: "The Layout book Juni created really get my sales sky rocketed.", 
-    name: "Sarah Orwell", 
-    title: "Amazon KDP Author", 
-    avatar: "/assets/avatars/sarah.jpg" 
-  },
-  { 
-    quote: "My social media post getting more engagement after Juni change the design.", 
-    name: "Elena Markova", 
-    title: "Social media influencerr", 
-    avatar: "/assets/avatars/elena.jpg" 
-  },
+	{
+		quote: "Juni delivered our new branding within a tight deadline and exceeded expectations.",
+		name: "Alex Johnson",
+		title: "Marketing Specialist, TechSolutions",
+		avatar: alexAvatar,
+	},
+	{
+		quote: "The final e-book layout was clean, professional, and visually stunning.",
+		name: "Maria Sanchez",
+		title: "Marketing Manager",
+		avatar: mariaAvatar,
+	},
+	{
+		quote: "Our pitch deck secured funding thanks to the clarity of the design.",
+		name: "David Lee",
+		title: "Founder, Liva.corp",
+		avatar: davidAvatar,
+	},
+	// Tambahkan testimonial lainnya di sini
+	{
+		quote: "The Layout book Juni created really get my sales sky rocketed.",
+		name: "Sarah Orwell",
+		title: "Amazon KDP Author",
+		avatar: sarahAvatar,
+	},
+	{
+		quote: "My social media post getting more engagement after Juni change the design.",
+		name: "Elena Markova",
+		title: "Social media influencerr",
+		avatar: elenaAvatar,
+	},
 ];
 // Full Astro Component Syntax:
 // https://docs.astro.build/basics/astro-components/
@@ -76,48 +85,65 @@ const testimonials = [
 				<div class="hello-bar">
 					<span class="hello-badge" aria-hidden="true">👋 Hi!</span>
 					<span class="hello-text">
-					I’m <strong>Juni Salman</strong> – Visual Designer with <strong>5+ Years</strong> of Experience
+						I’m <strong>Juni Salman</strong> – Visual Designer with <strong
+							>5+ Years</strong
+						> of Experience
 					</span>
 				</div>
 
 				<!-- Main Headline -->
 				<div class="hero-copy">
 					<h1 class="headline">
-					Creative Strategies to<br />
-					Enhance Your Design<br />
-					<span class="accent" id="accent-rotator" aria-live="polite">Social Media</span><span class="caret" aria-hidden="true"></span>
+						Creative Strategies to<br />
+						Enhance Your Design<br />
+						<span
+							class="accent"
+							id="accent-rotator"
+							aria-live="polite">Social Media</span
+						><span class="caret" aria-hidden="true"></span>
 					</h1>
 					<p class="subtext">
-					Design is not merely about visuals; it’s fundamentally about conveying your story.
+						Design is not merely about visuals; it’s fundamentally
+						about conveying your story.
 					</p>
 
 					<div class="cta-row">
-					<a
-						class="btn-upwork"
-						href="https://www.upwork.com/freelancers/~010281856c352ab60d"
-						target="_blank"
-						rel="noopener"
-					>
-						<!-- Simple UP mark; boleh hapus SVG kalau mau teks saja -->
-						<svg width="28" height="28" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
-						<path d="M22.9 10.1c-2 0-3.7 1.6-3.9 3.6-1-.9-2-2.2-2.8-3.8V9h-3v6.7c0 1.2-.9 2.1-2.1 2.1s-2.1-.9-2.1-2.1V9H6v6.7c0 2.9 2.3 5.2 5.1 5.2 2 0 3.8-1.1 4.6-2.8.6.6 1.3 1.2 2 1.7v3.1h3v-3.9c2.9-.3 5.1-2.7 5.1-5.6 0-3.1-2.5-5.4-5.1-5.4zm0 8c-1.3 0-2.4-.8-2.8-2 .2-1.6 1.6-2.7 3.1-2.5 1.3.2 2.2 1.3 2.2 2.6 0 1.1-.7 2.1-1.7 2.5-.2.2-.5.3-.8.4z" fill="currentColor"/>
-						</svg>
-						<span>HIRE Me on Upwork!</span>
-					</a>
+						<a
+							class="btn-upwork"
+							href="https://www.upwork.com/freelancers/~010281856c352ab60d"
+							target="_blank"
+							rel="noopener"
+						>
+							<!-- Simple UP mark; boleh hapus SVG kalau mau teks saja -->
+							<svg
+								width="28"
+								height="28"
+								viewBox="0 0 32 32"
+								aria-hidden="true"
+								focusable="false"
+							>
+								<path
+									d="M22.9 10.1c-2 0-3.7 1.6-3.9 3.6-1-.9-2-2.2-2.8-3.8V9h-3v6.7c0 1.2-.9 2.1-2.1 2.1s-2.1-.9-2.1-2.1V9H6v6.7c0 2.9 2.3 5.2 5.1 5.2 2 0 3.8-1.1 4.6-2.8.6.6 1.3 1.2 2 1.7v3.1h3v-3.9c2.9-.3 5.1-2.7 5.1-5.6 0-3.1-2.5-5.4-5.1-5.4zm0 8c-1.3 0-2.4-.8-2.8-2 .2-1.6 1.6-2.7 3.1-2.5 1.3.2 2.2 1.3 2.2 2.6 0 1.1-.7 2.1-1.7 2.5-.2.2-.5.3-.8.4z"
+									fill="currentColor"></path>
+							</svg>
+							<span>HIRE Me on Upwork!</span>
+						</a>
 
-					<a class="text-link" href="/work/">View my Portfolio</a>
+						<a class="text-link" href="/work/">View my Portfolio</a>
 					</div>
 				</div>
 				<!-- Portrait Image -->
 
 				<div class="portrait-wrap" id="portrait-wrap">
-						<img
-							class="hero-portrait"
-							src="/assets/potrait_juni.jpg"
-							alt="Juni Salman"
-							width="480"
-							height="640"
-						/>
+					<Image
+						class="hero-portrait"
+						src={portraitJuni}
+						alt="Juni Salman"
+						width={480}
+						height={640}
+						loading="eager"
+						fetchpriority="high"
+					/>
 				</div>
 				<script type="module">
 					import { initHero } from "/src/animations/hero.ts";
@@ -130,81 +156,92 @@ const testimonials = [
 
 				<!-- Parallax Script -->
 				<script type="module">
-					const wrap = document.getElementById('portrait-wrap');
+					const wrap = document.getElementById("portrait-wrap");
 					if (wrap) {
-						const img = wrap.querySelector('.hero-portrait');
+						const img = wrap.querySelector(".hero-portrait");
 
 						// Matikan interaksi di perangkat sentuh / pointer kasar
-						const coarse = window.matchMedia('(pointer: coarse)').matches;
-						const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+						const coarse =
+							window.matchMedia("(pointer: coarse)").matches;
+						const reduced = window.matchMedia(
+							"(prefers-reduced-motion: reduce)",
+						).matches;
 						if (!coarse && !reduced) enableParallax();
 
-						function enableParallax(){
-						// batas gerak
-						const MAX_TX = 12;   // px horizontal
-						const MAX_TY = 10;   // px vertical
-						const MAX_RX = 6;    // deg tilt X
-						const MAX_RY = 6;    // deg tilt Y
+						function enableParallax() {
+							// batas gerak
+							const MAX_TX = 12; // px horizontal
+							const MAX_TY = 10; // px vertical
+							const MAX_RX = 6; // deg tilt X
+							const MAX_RY = 6; // deg tilt Y
 
-						let rect, targetX = 0, targetY = 0, tRX = 0, tRY = 0;
-						let curX = 0, curY = 0, cRX = 0, cRY = 0;
-						let rafId = 0;
-						const lerp = (a,b,n)=>a+(b-a)*n;
+							let rect,
+								targetX = 0,
+								targetY = 0,
+								tRX = 0,
+								tRY = 0;
+							let curX = 0,
+								curY = 0,
+								cRX = 0,
+								cRY = 0;
+							let rafId = 0;
+							const lerp = (a, b, n) => a + (b - a) * n;
 
-						function onEnter(){
-							rect = wrap.getBoundingClientRect();
-							wrap.classList.add('is-hover');
-							loop(); // mulai RAF
-						}
-						function onMove(e){
-							// posisi relatif 0..1
-							const x = (e.clientX - rect.left) / rect.width;
-							const y = (e.clientY - rect.top) / rect.height;
-
-							// mapping ke batas
-							targetX = (x - 0.5) * 2 * MAX_TX;          // -MAX..MAX
-							targetY = (y - 0.5) * 2 * MAX_TY;
-							tRY     = (x - 0.5) * 2 * MAX_RY;          // rotY: kiri(-) kanan(+)
-							tRX     = -(y - 0.5) * 2 * MAX_RX;         // rotX: atas(+), bawah(-)
-
-							wrap.classList.add('is-moving');
-						}
-						function onLeave(){
-							wrap.classList.remove('is-hover');
-							wrap.classList.remove('is-moving');
-							// balik ke netral
-							targetX = targetY = tRX = tRY = 0;
-							if (!rafId) loop(); // pastikan baliknya halus
-						}
-
-						function loop(){
-							// easing
-							curX = lerp(curX, targetX, 0.12);
-							curY = lerp(curY, targetY, 0.12);
-							cRX  = lerp(cRX,  tRX,    0.12);
-							cRY  = lerp(cRY,  tRY,    0.12);
-
-							img.style.transform =
-							`translate3d(${curX}px, ${curY}px, 0) rotateX(${cRX}deg) rotateY(${cRY}deg)`;
-
-							const stillMoving =
-							Math.abs(curX-targetX)>0.2 || Math.abs(curY-targetY)>0.2 ||
-							Math.abs(cRX-tRX)>0.2 || Math.abs(cRY-tRY)>0.2;
-
-							if (stillMoving){
-							rafId = requestAnimationFrame(loop);
-							} else {
-							// stop RAF; kalau tidak hover, kembalikan animasi float
-							rafId = 0;
-							if (!wrap.classList.contains('is-hover')){
-								img.style.transform = '';          // reset
+							function onEnter() {
+								rect = wrap.getBoundingClientRect();
+								wrap.classList.add("is-hover");
+								loop(); // mulai RAF
 							}
-							}
-						}
+							function onMove(e) {
+								// posisi relatif 0..1
+								const x = (e.clientX - rect.left) / rect.width;
+								const y = (e.clientY - rect.top) / rect.height;
 
-						wrap.addEventListener('mouseenter', onEnter);
-						wrap.addEventListener('mousemove', onMove);
-						wrap.addEventListener('mouseleave', onLeave);
+								// mapping ke batas
+								targetX = (x - 0.5) * 2 * MAX_TX; // -MAX..MAX
+								targetY = (y - 0.5) * 2 * MAX_TY;
+								tRY = (x - 0.5) * 2 * MAX_RY; // rotY: kiri(-) kanan(+)
+								tRX = -(y - 0.5) * 2 * MAX_RX; // rotX: atas(+), bawah(-)
+
+								wrap.classList.add("is-moving");
+							}
+							function onLeave() {
+								wrap.classList.remove("is-hover");
+								wrap.classList.remove("is-moving");
+								// balik ke netral
+								targetX = targetY = tRX = tRY = 0;
+								if (!rafId) loop(); // pastikan baliknya halus
+							}
+
+							function loop() {
+								// easing
+								curX = lerp(curX, targetX, 0.12);
+								curY = lerp(curY, targetY, 0.12);
+								cRX = lerp(cRX, tRX, 0.12);
+								cRY = lerp(cRY, tRY, 0.12);
+
+								img.style.transform = `translate3d(${curX}px, ${curY}px, 0) rotateX(${cRX}deg) rotateY(${cRY}deg)`;
+
+								const stillMoving =
+									Math.abs(curX - targetX) > 0.2 ||
+									Math.abs(curY - targetY) > 0.2 ||
+									Math.abs(cRX - tRX) > 0.2 ||
+									Math.abs(cRY - tRY) > 0.2;
+
+								if (stillMoving) {
+									rafId = requestAnimationFrame(loop);
+								} else {
+									// stop RAF; kalau tidak hover, kembalikan animasi float
+									rafId = 0;
+									if (!wrap.classList.contains("is-hover")) {
+										img.style.transform = ""; // reset
+									}
+								}
+							}
+
+							wrap.addEventListener("mouseenter", onEnter);
+							wrap.addEventListener("mousemove", onMove);
+							wrap.addEventListener("mouseleave", onLeave);
 						}
 					}
 				</script>
@@ -216,7 +253,7 @@ const testimonials = [
 						"Social media post",
 						"Static Ads",
 						"Product listing",
-						"Printed Product"
+						"Printed Product",
 					];
 
 					const el = document.getElementById("accent-rotator");
@@ -224,169 +261,219 @@ const testimonials = [
 					const TYPE = 65;
 					const DELETE = 45;
 					const HOLD = 1200;
-					const GAP  = 350;
+					const GAP = 350;
 
-					const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+					const reduced = window.matchMedia(
+						"(prefers-reduced-motion: reduce)",
+					).matches;
 					const NBSP = "\u00A0";
 
 					// (opsional) kunci lebar minimum berdasar kata terpanjang
-					const longest = words.reduce((m, w) => Math.max(m, w.length), 0);
+					const longest = words.reduce(
+						(m, w) => Math.max(m, w.length),
+						0,
+					);
 					if (el) el.style.minWidth = `${longest}ch`;
 
-					function sleep(ms){ return new Promise(r => setTimeout(r, ms)); }
+					function sleep(ms) {
+						return new Promise((r) => setTimeout(r, ms));
+					}
 
-					async function type(text){
-						if (reduced){ el.textContent = text; return; }
+					async function type(text) {
+						if (reduced) {
+							el.textContent = text;
+							return;
+						}
 						// kalau sebelumnya NBSP, kosongkan dulu
 						if (el.textContent === NBSP) el.textContent = "";
 						el.parentElement?.classList.add("typing");
-						for (let i = 0; i <= text.length; i++){
-						el.textContent = text.slice(0, i);
-						await sleep(TYPE);
+						for (let i = 0; i <= text.length; i++) {
+							el.textContent = text.slice(0, i);
+							await sleep(TYPE);
 						}
 						el.parentElement?.classList.remove("typing");
 					}
 
-					async function erase(text){
-						if (reduced){ return; }
+					async function erase(text) {
+						if (reduced) {
+							return;
+						}
 						el.parentElement?.classList.add("typing");
 						// hapus sampai menyisakan 0 karakter, lalu ganti NBSP (agar tinggi tetap ada)
-						for (let i = text.length; i >= 1; i--){
-						el.textContent = text.slice(0, i - 1);
-						await sleep(DELETE);
+						for (let i = text.length; i >= 1; i--) {
+							el.textContent = text.slice(0, i - 1);
+							await sleep(DELETE);
 						}
 						el.textContent = NBSP; // <-- inilah penopang line
 						el.parentElement?.classList.remove("typing");
 					}
 
-					async function loop(){
+					async function loop() {
 						let i = 0;
 						el.textContent = words[0];
 						await sleep(HOLD);
-						while (true){
-						i = (i + 1) % words.length;
-						await erase(el.textContent);
-						el.textContent = NBSP; // biar line tetap ada
-						await sleep(GAP);
-						await type(words[i]);
-						await sleep(HOLD);
+						while (true) {
+							i = (i + 1) % words.length;
+							await erase(el.textContent);
+							el.textContent = NBSP; // biar line tetap ada
+							await sleep(GAP);
+							await type(words[i]);
+							await sleep(HOLD);
 						}
 					}
 
 					if (el) loop();
 				</script>
 
-	
+				<script>
+					import { animate, inView, stagger } from "motion";
+
+					document.addEventListener("astro:page-load", () => {
+						// Animate Portfolio Grids
+						inView(".gallery", (target) => {
+							// Target .card (PortfolioPreview) and .testimonial-card (TestimonialCard)
+							// to avoid conflict with Grid.astro's transform on li
+							const items = target.querySelectorAll(
+								".card, .testimonial-card",
+							);
+
+							animate(
+								items,
+								{ opacity: [0, 1], y: [50, 0] }, // Move up 50px and fade in
+								{
+									duration: 0.8,
+									delay: stagger(0.2), // 0.2s delay between each item
+								},
+							);
+						});
+					});
+				</script>
 			</header>
 
 			<Skills />
 		</div>
 
 		<main class="wrapper stack gap-20 lg:gap-48">
-
-				<section class="section with-background with-cta">
-					<header class="section-header stack gap-2 lg:gap-4">
-						<h3>Graphic Design Work</h3>
-						<p>Look at my Latest work on Graphic Design Projects.</p>
-					</header>
-
-					<div class="gallery">
-						<Grid variant="offset">
-							{
-								graphicDesign.map((project) => ( // <-- Menggunakan array yang sudah difilter
-									<li>
-										<PortfolioPreview project={project} />
-									</li>
-								))
-							}
-						</Grid>
-					</div>
-
-					<div class="cta">
-						<CallToAction href="/work/graphic-design">View All Graphic Design</CallToAction>
-					</div>
-				</section>
-
-				<section class="section with-background bg-variant with-cta">
-					<header class="section-header stack gap-2 lg:gap-4">
-						<h3>E-book Layouts</h3>
-						<p>These are few of my recent works on book layout projects.</p>
-					</header>
-
-					<div class="gallery">
-						<Grid variant="offset">
-							{
-								ebookLayout.map((project) => ( // <-- Menggunakan array yang sudah difilter
-									<li>
-										<PortfolioPreview project={project} />
-									</li>
-								))
-							}
-						</Grid>
-					</div>
-					<div class="cta">
-						<CallToAction href="/work/ebook-layout">View All E-book</CallToAction>
-					</div>
-				</section>
-
-				<section class="section with-background with-cta">
-					<header class="section-header stack gap-2 lg:gap-4">
-						<h3>Pitch Deck Design</h3>
-						<p>My lates Presentation Pitch Deck work projects</p>
-					</header>
-
-					<div class="gallery">
-						<Grid variant="offset">
-							{
-								pitchDeckDesign.map((project) => ( // <-- Menggunakan array yang sudah difilter
-									<li>
-										<PortfolioPreview project={project} />
-									</li>
-								))
-							}
-						</Grid>
-					</div>
-        <div class="cta">
-            <CallToAction href="/work/pitch-deck">View All Pitch Deck</CallToAction>
-        </div>
-    </section>
-
-    </main>
-
-				<div class="cta">
-					<CallToAction href="/work/">
-						View All
-						<Icon icon="arrow-right" size="1.2em" />
-					</CallToAction>
-				</div>
-			</section>
-
-			<section class="section with-background bg-variant">
+			<section class="section with-background with-cta">
 				<header class="section-header stack gap-2 lg:gap-4">
-					<h3>Testimonials</h3>
-					<p>Look What they say about me</p>
+					<h3>Graphic Design Work</h3>
+					<p>Look at my Latest work on Graphic Design Projects.</p>
 				</header>
 
 				<div class="gallery">
-					<Grid variant="small">
+					<Grid variant="offset">
 						{
-							// Gunakan array baru dan komponen baru
-							testimonials.map((t) => (
-								<TestimonialCard 
-									quote={t.quote} 
-									name={t.name} 
-									title={t.title} 
-									avatar={t.avatar}
-								/>
-							))
+							graphicDesign.map(
+								(
+									project, // <-- Menggunakan array yang sudah difilter
+								) => (
+									<li>
+										<PortfolioPreview project={project} />
+									</li>
+								),
+							)
 						}
 					</Grid>
+				</div>
+
+				<div class="cta">
+					<CallToAction href="/work/graphic-design"
+						>View All Graphic Design</CallToAction
+					>
+				</div>
+			</section>
+
+			<section class="section with-background bg-variant with-cta">
+				<header class="section-header stack gap-2 lg:gap-4">
+					<h3>E-book Layouts</h3>
+					<p>
+						These are few of my recent works on book layout
+						projects.
+					</p>
+				</header>
+
+				<div class="gallery">
+					<Grid variant="offset">
+						{
+							ebookLayout.map(
+								(
+									project, // <-- Menggunakan array yang sudah difilter
+								) => (
+									<li>
+										<PortfolioPreview project={project} />
+									</li>
+								),
+							)
+						}
+					</Grid>
+				</div>
+				<div class="cta">
+					<CallToAction href="/work/ebook-layout"
+						>View All E-book</CallToAction
+					>
+				</div>
+			</section>
+
+			<section class="section with-background with-cta">
+				<header class="section-header stack gap-2 lg:gap-4">
+					<h3>Pitch Deck Design</h3>
+					<p>My lates Presentation Pitch Deck work projects</p>
+				</header>
+
+				<div class="gallery">
+					<Grid variant="offset">
+						{
+							pitchDeckDesign.map(
+								(
+									project, // <-- Menggunakan array yang sudah difilter
+								) => (
+									<li>
+										<PortfolioPreview project={project} />
+									</li>
+								),
+							)
+						}
+					</Grid>
+				</div>
+				<div class="cta">
+					<CallToAction href="/work/pitch-deck"
+						>View All Pitch Deck</CallToAction
+					>
 				</div>
 			</section>
 		</main>
 
-		<ContactCTA />
+		<div class="cta">
+			<CallToAction href="/work/">
+				View All
+				<Icon icon="arrow-right" size="1.2em" />
+			</CallToAction>
+		</div>
 	</div>
+
+	<section class="section with-background bg-variant">
+		<header class="section-header stack gap-2 lg:gap-4">
+			<h3>Testimonials</h3>
+			<p>Look What they say about me</p>
+		</header>
+
+		<div class="gallery">
+			<Grid variant="small">
+				{
+					// Gunakan array baru dan komponen baru
+					testimonials.map((t) => (
+						<TestimonialCard
+							quote={t.quote}
+							name={t.name}
+							title={t.title}
+							avatar={t.avatar}
+						/>
+					))
+				}
+			</Grid>
+		</div>
+	</section>
+	<ContactCTA />
 </BaseLayout>
 
 <style>
@@ -444,7 +531,7 @@ const testimonials = [
 	.with-background::before {
 		--hero-bg: var(--bg-image-subtle-2);
 
-		content: '';
+		content: "";
 		position: absolute;
 		pointer-events: none;
 		left: 50%;
@@ -453,7 +540,7 @@ const testimonials = [
 		top: 0;
 		transform: translateY(-75%) translateX(-50%);
 		background:
-			url('/assets/backgrounds/noise.png') top center/220px repeat,
+			url("/assets/backgrounds/noise.png") top center/220px repeat,
 			var(--hero-bg) center center / var(--bg-gradient-size) no-repeat,
 			var(--gray-999);
 		background-blend-mode: overlay, normal, normal, normal;
@@ -480,12 +567,12 @@ const testimonials = [
 	@media (min-width: 50em) {
 		.section {
 			grid-template-columns: repeat(4, 1fr);
-			grid-template-areas: 'header header header header' 'gallery gallery gallery gallery';
+			grid-template-areas: "header header header header" "gallery gallery gallery gallery";
 			gap: 5rem;
 		}
 
 		.section.with-cta {
-			grid-template-areas: 'header header header cta' 'gallery gallery gallery gallery';
+			grid-template-areas: "header header header cta" "gallery gallery gallery gallery";
 		}
 
 		.section-header {
@@ -532,211 +619,252 @@ const testimonials = [
 			height: 9.5rem;
 		}
 	}
-/* === HERO CLEAN VERSION === */
+	/* === HERO CLEAN VERSION === */
 
-.hero-custom {
-  display: grid;
-  gap: 1.75rem;
-  max-width: 1100px;
-  margin-inline: auto;
-  padding: clamp(1.25rem, 4vw, 2.5rem) 1rem 2.5rem;
-}
+	.hero-custom {
+		display: grid;
+		gap: 1.75rem;
+		max-width: 1100px;
+		margin-inline: auto;
+		padding: clamp(1.25rem, 4vw, 2.5rem) 1rem 2.5rem;
+	}
 
-/* Mobile */
-@media (max-width: 899px) {
-  .hero-custom {
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      "hello"
-      "copy"
-      "pic";
-  }
-}
+	/* Mobile */
+	@media (max-width: 899px) {
+		.hero-custom {
+			grid-template-columns: 1fr;
+			grid-template-areas:
+				"hello"
+				"copy"
+				"pic";
+		}
+	}
 
-/* Desktop */
-@media (min-width: 900px) {
-  .hero-custom {
-    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
-    grid-template-areas:
-      "hello pic"
-      "copy  pic";
-    align-items: start;
-  }
-}
+	/* Desktop */
+	@media (min-width: 900px) {
+		.hero-custom {
+			grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+			grid-template-areas:
+				"hello pic"
+				"copy  pic";
+			align-items: start;
+		}
+	}
 
-/* --- Hello Bar --- */
-.hello-bar {
-  grid-area: hello;
-  display: inline-flex;
-  align-items: center;
-  gap: .75rem;
-  padding: .5rem .9rem;
-  border: 2px solid rgba(0,0,0,.25);
-  border-radius: 999px;
-  background: rgba(255,255,255,.35);
-  -webkit-backdrop-filter: blur(6px);
-  backdrop-filter: blur(6px);
-}
+	/* --- Hello Bar --- */
+	.hello-bar {
+		grid-area: hello;
+		display: inline-flex;
+		align-items: center;
+		gap: 0.75rem;
+		padding: 0.5rem 0.9rem;
+		border: 2px solid rgba(0, 0, 0, 0.25);
+		border-radius: 999px;
+		background: rgba(255, 255, 255, 0.35);
+		-webkit-backdrop-filter: blur(6px);
+		backdrop-filter: blur(6px);
+	}
 
-.hello-badge {
-  padding: .35rem .7rem;
-  border-radius: 999px;
-  background: #ffa318;
-  color: #111;
-  font-weight: 700;
-  transition: .15s transform, .15s filter, .15s box-shadow;
-  cursor: default;
-}
-.hello-badge:hover {
-  transform: translateY(-1px);
-  filter: brightness(1.05);
-  box-shadow: 0 6px 16px rgba(255,163,24,.35);
-}
+	.hello-badge {
+		padding: 0.35rem 0.7rem;
+		border-radius: 999px;
+		background: #ffa318;
+		color: #111;
+		font-weight: 700;
+		transition:
+			0.15s transform,
+			0.15s filter,
+			0.15s box-shadow;
+		cursor: default;
+	}
+	.hello-badge:hover {
+		transform: translateY(-1px);
+		filter: brightness(1.05);
+		box-shadow: 0 6px 16px rgba(255, 163, 24, 0.35);
+	}
 
-.hello-text {
-  color: #1b1b1b;
-}
+	.hello-text {
+		color: #1b1b1b;
+	}
 
-/* --- Copy block --- */
-.hero-copy {
-  grid-area: copy;
-}
-.hero-copy .headline {
-  margin: .25rem 0 0;
-  font-size: clamp(2.2rem, 6vw, 4.5rem);
-  line-height: 1.05;
-  letter-spacing: -.01em;
-  color: var(--gray-0);
-}
-.hero-copy .headline .accent {
-  color: #f59e0b;
-}
-.hero-copy .subtext {
-  margin-top: 1rem;
-  color: #3a3a3a;
-  font-size: clamp(1rem, 1.6vw, 1.125rem);
-}
+	/* --- Copy block --- */
+	.hero-copy {
+		grid-area: copy;
+	}
+	.hero-copy .headline {
+		margin: 0.25rem 0 0;
+		font-size: clamp(2.2rem, 6vw, 4.5rem);
+		line-height: 1.05;
+		letter-spacing: -0.01em;
+		color: var(--gray-0);
+	}
+	.hero-copy .headline .accent {
+		color: #f59e0b;
+	}
+	.hero-copy .subtext {
+		margin-top: 1rem;
+		color: #3a3a3a;
+		font-size: clamp(1rem, 1.6vw, 1.125rem);
+	}
 
-/* --- CTA --- */
-.cta-row {
-  display: flex;
-  gap: 1.25rem;
-  flex-wrap: wrap;
-  align-items: center;
-  margin-top: 1.25rem;
-}
+	/* --- CTA --- */
+	.cta-row {
+		display: flex;
+		gap: 1.25rem;
+		flex-wrap: wrap;
+		align-items: center;
+		margin-top: 1.25rem;
+	}
 
-.btn-upwork {
-  display: inline-flex;
-  align-items: center;
-  gap: .6rem;
-  padding: .9rem 1.1rem;
-  border-radius: 1rem;
-  background: #16a34a;
-  color: #fff !important;
-  font-weight: 800;
-  text-decoration: none;
-  box-shadow: 0 8px 20px rgba(22,163,74,.25);
-  transition: background .25s ease, color .25s ease,
-              transform .15s ease, box-shadow .15s ease;
-}
-.btn-upwork:hover {
-  background: #000;
-  color: #fff !important;
-  transform: translateY(-2px);
-  box-shadow: 0 14px 28px rgba(0,0,0,.25);
-  filter: none;
-}
+	.btn-upwork {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.6rem;
+		padding: 0.9rem 1.1rem;
+		border-radius: 1rem;
+		background: #16a34a;
+		color: #fff !important;
+		font-weight: 800;
+		text-decoration: none;
+		box-shadow: 0 8px 20px rgba(22, 163, 74, 0.25);
+		transition:
+			background 0.25s ease,
+			color 0.25s ease,
+			transform 0.15s ease,
+			box-shadow 0.15s ease;
+	}
+	.btn-upwork:hover {
+		background: #000;
+		color: #fff !important;
+		transform: translateY(-2px);
+		box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25);
+		filter: none;
+	}
 
-.text-link {
-  font-weight: 600;
-  text-decoration: underline;
-  color: #1b1b1b;
-}
-.text-link:hover {
-  opacity: .85;
-}
+	.text-link {
+		font-weight: 600;
+		text-decoration: underline;
+		color: #1b1b1b;
+	}
+	.text-link:hover {
+		opacity: 0.85;
+	}
 
-/* --- Portrait --- */
-.hero-portrait {
-  grid-area: pic;
-  justify-self: end;
-  width: 100%;
-  max-width: 420px;
-  aspect-ratio: 3 / 4;
-  object-fit: cover;
-  object-position: top;
-  border-radius: 2.5rem;
-  box-shadow: 0 12px 32px rgba(0,0,0,.18);
-}
-.caret{
-  position: relative;
-  display: inline-block;
-  width: .08em;
-  height: 1em;
-  margin-left: .12em;
-  background: currentColor;
-  top: 0;                /* pastikan sejajar baseline */
-  vertical-align: text-bottom;
-  animation: caretBlink 1s steps(1,end) infinite;
-}
-@keyframes caretBlink { 50% { opacity: 0; } }
-.typing .caret { animation-duration: .6s; }
+	/* --- Portrait --- */
+	.hero-portrait {
+		grid-area: pic;
+		justify-self: end;
+		width: 100%;
+		max-width: 420px;
+		aspect-ratio: 3 / 4;
+		object-fit: cover;
+		object-position: top;
+		border-radius: 2.5rem;
+		box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
+	}
+	.caret {
+		position: relative;
+		display: inline-block;
+		width: 0.08em;
+		height: 1em;
+		margin-left: 0.12em;
+		background: currentColor;
+		top: 0; /* pastikan sejajar baseline */
+		vertical-align: text-bottom;
+		animation: caretBlink 1s steps(1, end) infinite;
+	}
+	@keyframes caretBlink {
+		50% {
+			opacity: 0;
+		}
+	}
+	.typing .caret {
+		animation-duration: 0.6s;
+	}
 
-/* Container foto */
-.portrait-wrap{
-  grid-area: pic;
-  justify-self: end;
-  perspective: 800px;          /* buat tilt terasa 3D */
-  width: 100%;
-  max-width: 420px;
-}
+	/* Container foto */
+	.portrait-wrap {
+		grid-area: pic;
+		justify-self: end;
+		perspective: 800px; /* buat tilt terasa 3D */
+		width: 100%;
+		max-width: 420px;
+	}
 
-/* Foto */
-.hero-portrait{
-  display: block;
-  width: 100%;
-  aspect-ratio: 3 / 4;
-  object-fit: cover;
-  object-position: top;
-  border-radius: 2.5rem;
-  box-shadow: 0 12px 32px rgba(0,0,0,.18);
+	/* Foto */
+	.hero-portrait {
+		display: block;
+		width: 100%;
+		aspect-ratio: 3 / 4;
+		object-fit: cover;
+		object-position: top;
+		border-radius: 2.5rem;
+		box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
 
-  /* idle floating */
-  animation: floatY 6.5s ease-in-out infinite;
-  transform: translate3d(0,0,0);
-  will-change: transform;
-}
+		/* idle floating */
+		animation: floatY 6.5s ease-in-out infinite;
+		transform: translate3d(0, 0, 0);
+		will-change: transform;
+	}
 
-/* Animasi melayang pelan */
-@keyframes floatY{
-  0%   { transform: translateY(0); }
-  50%  { transform: translateY(-10px); }
-  100% { transform: translateY(0); }
-}
+	/* Animasi melayang pelan */
+	@keyframes floatY {
+		0% {
+			transform: translateY(0);
+		}
+		50% {
+			transform: translateY(-10px);
+		}
+		100% {
+			transform: translateY(0);
+		}
+	}
 
-/* Saat diparallax oleh JS, kita pause animasi CSS biar nggak tabrakan */
-.portrait-wrap.is-moving .hero-portrait{
-  animation: none;
-}
+	/* Saat diparallax oleh JS, kita pause animasi CSS biar nggak tabrakan */
+	.portrait-wrap.is-moving .hero-portrait {
+		animation: none;
+	}
 
-/* Smooth kalau pointer keluar */
-.hero-portrait{
-  transition: transform .18s ease-out, box-shadow .18s ease-out;
-}
-.portrait-wrap.is-hover .hero-portrait{
-  box-shadow: 0 16px 40px rgba(0,0,0,.22);
-}
+	/* Smooth kalau pointer keluar */
+	.hero-portrait {
+		transition:
+			transform 0.18s ease-out,
+			box-shadow 0.18s ease-out;
+	}
+	.portrait-wrap.is-hover .hero-portrait {
+		box-shadow: 0 16px 40px rgba(0, 0, 0, 0.22);
+	}
 
-/* Aksesibilitas: hormati prefers-reduced-motion */
-@media (prefers-reduced-motion: reduce){
-  .hero-portrait{ animation: none; transition: none; }
-}
+	/* Aksesibilitas: hormati prefers-reduced-motion */
+	@media (prefers-reduced-motion: reduce) {
+		.hero-portrait {
+			animation: none;
+			transition: none;
+		}
+	}
 
-/* Add this to style testimonial cards */
-:global(.testimonial-card) {
-        border: 1px solid var(--gray-800);
-        border-radius: 1.5rem;
-        box-shadow: var(--shadow-sm);
-    }
+	/* Add this to style testimonial cards */
+	:global(.testimonial-card) {
+		border: 1px solid var(--gray-800);
+		border-radius: 1.5rem;
+		box-shadow: var(--shadow-sm);
+	}
+	.headline {
+		animation: fadeInUp 1s ease-out forwards;
+		opacity: 0; /* Start hidden */
+		transform: translateY(20px);
+	}
+
+	.subtext {
+		animation: fadeInUp 1s ease-out 0.3s forwards; /* 0.3s delay */
+		opacity: 0;
+		transform: translateY(20px);
+	}
+
+	@keyframes fadeInUp {
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
 </style>

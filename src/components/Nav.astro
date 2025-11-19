@@ -1,34 +1,41 @@
 ---
-import Icon from './Icon.astro';
-import type { iconPaths } from './IconPaths';
-import ThemeToggle from './ThemeToggle.astro';
+import Icon from "./Icon.astro";
+import type { iconPaths } from "./IconPaths";
+import ThemeToggle from "./ThemeToggle.astro";
 
 /** Main menu items */
 const textLinks: { label: string; href: string }[] = [
-    { label: 'Home', href: '/' },
-    { label: 'Work', href: '/work/' },
-    { label: 'About', href: '/about/' },
-    { label: 'Blog', href: '/blog/' },
+    { label: "Home", href: "/" },
+    { label: "Work", href: "/work/" },
+    { label: "About", href: "/about/" },
+    { label: "Blog", href: "/blog/" },
 ];
 
 /** Icon links to social media — edit these with links to your profiles! */
-const iconLinks: { label: string; href: string; icon: keyof typeof iconPaths }[] = [
-    
-];
+const iconLinks: {
+    label: string;
+    href: string;
+    icon: keyof typeof iconPaths;
+}[] = [];
 
 /** Test if a link is pointing to the current page. */
 const isCurrentPage = (href: string) => {
-    let pathname = Astro.url.pathname.replace(import.meta.env.BASE_URL, '');
-    if (pathname.at(0) !== '/') pathname = '/' + pathname;
-    if (pathname.at(-1) !== '/') pathname += '/';
-    return pathname === href || (href !== '/' && pathname.startsWith(href));
+    let pathname = Astro.url.pathname.replace(import.meta.env.BASE_URL, "");
+    if (pathname.at(0) !== "/") pathname = "/" + pathname;
+    if (pathname.at(-1) !== "/") pathname += "/";
+    return pathname === href || (href !== "/" && pathname.startsWith(href));
 };
 ---
 
 <nav>
     <div class="menu-header">
         <a href="/" class="site-title">
-            <Icon icon="bounding-box" color="var(--accent-regular)" size="1.6em" gradient />
+            <Icon
+                icon="bounding-box"
+                color="var(--accent-regular)"
+                size="1.6em"
+                gradient
+            />
             Juni Salman
         </a>
         <menu-button>
@@ -45,7 +52,11 @@ const isCurrentPage = (href: string) => {
             {
                 textLinks.map(({ label, href }) => (
                     <li>
-                        <a aria-current={isCurrentPage(href) ? 'page' : null} class="link" href={href}>
+                        <a
+                            aria-current={isCurrentPage(href) ? "page" : null}
+                            class="link"
+                            href={href}
+                        >
                             {label}
                         </a>
                     </li>
@@ -71,23 +82,56 @@ const isCurrentPage = (href: string) => {
         <ul class="nav-items">
             {
                 textLinks.map(({ label, href }) => {
-                    if (label === 'Work') {
+                    if (label === "Work") {
                         return (
                             <li class="dropdown-parent" id="work-dropdown">
-                                <a aria-current={isCurrentPage(href) ? 'page' : null} class="link" href={href}>
+                                <a
+                                    aria-current={
+                                        isCurrentPage(href) ? "page" : null
+                                    }
+                                    class="link"
+                                    href={href}
+                                >
                                     {label}
                                 </a>
                                 <ul class="submenu" id="work-submenu">
-                                    <li><a href="/work/graphic-design" class="sublink">Graphic Design</a></li>
-                                    <li><a href="/work/ebook-layout" class="sublink">E-Book Layout</a></li>
-                                    <li><a href="/work/pitch-deck" class="sublink">Pitch deck</a></li>
+                                    <li>
+                                        <a
+                                            href="/work/graphic-design"
+                                            class="sublink"
+                                        >
+                                            Graphic Design
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a
+                                            href="/work/ebook-layout"
+                                            class="sublink"
+                                        >
+                                            E-Book Layout
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a
+                                            href="/work/pitch-deck"
+                                            class="sublink"
+                                        >
+                                            Pitch deck
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
                         );
                     }
                     return (
                         <li>
-                            <a aria-current={isCurrentPage(href) ? 'page' : null} class="link" href={href}>
+                            <a
+                                aria-current={
+                                    isCurrentPage(href) ? "page" : null
+                                }
+                                class="link"
+                                href={href}
+                            >
                                 {label}
                             </a>
                         </li>
@@ -120,94 +164,100 @@ const isCurrentPage = (href: string) => {
             super();
 
             // Inject menu toggle button when JS runs.
-            this.appendChild(this.querySelector('template')!.content.cloneNode(true));
-            const btn = this.querySelector('button')!;
+            this.appendChild(
+                this.querySelector("template")!.content.cloneNode(true),
+            );
+            const btn = this.querySelector("button")!;
 
             // Hide menu (shown by default to support no-JS browsers).
-            const menu = document.getElementById('menu-content')!;
+            const menu = document.getElementById("menu-content")!;
             menu.hidden = true;
             // Add "menu-content" class in JS to avoid covering content in non-JS browsers.
-            menu.classList.add('menu-content');
+            menu.classList.add("menu-content");
 
             /** Set whether the menu is currently expanded or collapsed. */
             const setExpanded = (expand: boolean) => {
-                btn.setAttribute('aria-expanded', expand ? 'true' : 'false');
+                btn.setAttribute("aria-expanded", expand ? "true" : "false");
                 menu.hidden = !expand;
             };
 
             // Toggle menu visibility when the menu button is clicked.
-            btn.addEventListener('click', () => setExpanded(menu.hidden));
+            btn.addEventListener("click", () => setExpanded(menu.hidden));
 
             // Close menu when a regular link is clicked (but not submenu links)
-            const navItems = menu.querySelectorAll('.link:not(.submenu .link)');
-            navItems.forEach(link => {
-                link.addEventListener('click', (e) => {
+            const navItems = menu.querySelectorAll(".link:not(.submenu .link)");
+            navItems.forEach((link) => {
+                link.addEventListener("click", (e) => {
                     // Don't close if it's a dropdown parent
-                    if (!link.closest('.dropdown-parent')) {
+                    if (!link.closest(".dropdown-parent")) {
                         setExpanded(false);
                     }
                 });
             });
 
             // Close menu when clicking outside
-            document.addEventListener('click', (e) => {
-                if (!this.contains(e.target as Node) && !menu.contains(e.target as Node)) {
+            document.addEventListener("click", (e) => {
+                if (
+                    !this.contains(e.target as Node) &&
+                    !menu.contains(e.target as Node)
+                ) {
                     setExpanded(false);
                 }
             });
 
             // Hide menu button for large screens.
-            const handleViewports = (e: MediaQueryList | MediaQueryListEvent) => {
+            const handleViewports = (
+                e: MediaQueryList | MediaQueryListEvent,
+            ) => {
                 setExpanded(e.matches);
                 btn.hidden = e.matches;
             };
-            const mediaQueries = window.matchMedia('(min-width: 50em)');
+            const mediaQueries = window.matchMedia("(min-width: 50em)");
             handleViewports(mediaQueries);
-            mediaQueries.addEventListener('change', handleViewports);
+            mediaQueries.addEventListener("change", handleViewports);
         }
     }
-    customElements.define('menu-button', MenuButton);
+    customElements.define("menu-button", MenuButton);
 </script>
 
 <script>
-    let closeTimeout: number | null = null;
-    document.addEventListener('DOMContentLoaded', () => {
-        const workDropdown = document.getElementById('work-dropdown');
-        const workLink = workDropdown?.querySelector('.link');
-        const submenu = document.getElementById('work-submenu');
-        let closeTimeout;
+    document.addEventListener("astro:page-load", () => {
+        const workDropdown = document.getElementById("work-dropdown");
+        const workLink = workDropdown?.querySelector(".link");
+        const submenu = document.getElementById("work-submenu");
+        let closeTimeout: number | undefined;
 
         if (workDropdown && submenu && workLink) {
             // Show submenu on hover over dropdown parent
-            workDropdown.addEventListener('mouseenter', () => {
+            workDropdown.addEventListener("mouseenter", () => {
                 clearTimeout(closeTimeout);
-                submenu.classList.add('is-active'); 
+                submenu.classList.add("is-active");
             });
 
-            workDropdown.addEventListener('mouseleave', () => {
-                closeTimeout = setTimeout(() => {
-                    submenu.classList.remove('is-active');
+            workDropdown.addEventListener("mouseleave", () => {
+                closeTimeout = window.setTimeout(() => {
+                    submenu.classList.remove("is-active");
                 }, 300); // 300ms delay before closing
             });
 
             // Keep submenu open when hovering over the submenu itself
-            submenu.addEventListener('mouseenter', () => {
+            submenu.addEventListener("mouseenter", () => {
                 clearTimeout(closeTimeout);
-                submenu.classList.add('is-active');
+                submenu.classList.add("is-active");
             });
 
-            submenu.addEventListener('mouseleave', () => {
-                closeTimeout = setTimeout(() => {
-                    submenu.classList.remove('is-active');
+            submenu.addEventListener("mouseleave", () => {
+                closeTimeout = window.setTimeout(() => {
+                    submenu.classList.remove("is-active");
                 }, 300); // 300ms delay before closing
             });
 
             // Close submenu when a sublink is clicked
-            const sublinks = submenu.querySelectorAll('.sublink');
-            sublinks.forEach(link => {
-                link.addEventListener('click', () => {
+            const sublinks = submenu.querySelectorAll(".sublink");
+            sublinks.forEach((link) => {
+                link.addEventListener("click", () => {
                     clearTimeout(closeTimeout);
-                    submenu.classList.remove('is-active');
+                    submenu.classList.remove("is-active");
                 });
             });
         }
@@ -216,287 +266,294 @@ const isCurrentPage = (href: string) => {
 
 <style>
     nav {
-		z-index: 9999;
-		position: fixed;
-		font-family: var(--font-brand);
-		font-weight: 500;
-		margin-bottom: 3.5rem;
-		top: 0;
-		width: 100%;
-		background-color: transparent;
-	}
-
-	.menu-header {
-		display: flex;
-		justify-content: space-between;
-		gap: 0.5rem;
-		padding: 1.5rem;
-	}
-
-	.site-title {
-		display: flex;
-		gap: 0.5rem;
-		align-items: center;
-		line-height: 1.1;
-		color: var(--gray-0);
-		text-decoration: none;
-	}
-
-	.menu-button {
-		position: relative;
-		display: flex;
-		border: 0;
-		border-radius: 999rem;
-		padding: 0.5rem;
-		font-size: 1.5rem;
-		color: var(--gray-300);
-		background: radial-gradient(var(--gray-900), var(--gray-800) 150%);
-		box-shadow: var(--shadow-md);
-	}
-
-	.menu-button[aria-expanded='true'] {
-		color: var(--gray-0);
-		background:
-			linear-gradient(180deg, var(--gray-600), transparent),
-			radial-gradient(var(--gray-900), var(--gray-800) 150%);
-	}
-
-	.menu-button[hidden] {
-		display: none;
-	}
-
-	.menu-button::before {
-		position: absolute;
-		inset: -1px;
-		content: '';
-		background: var(--gradient-stroke);
-		border-radius: 999rem;
-		z-index: -1;
-	}
-
-	.menu-content {
-		position: absolute;
-		left: 0;
-		right: 0;
-	}
-
-	.nav-items {
-		margin: 0;
-		display: flex;
-		flex-direction: column;
-		gap: 1rem;
-		font-size: var(--text-md);
-		line-height: 1.2;
-		list-style: none;
-		padding: 2rem;
-		background-color: var(--gray-999);
-		border-bottom: 1px solid var(--gray-800);
-	}
-
-	.link {
-		display: inline-block;
-		color: var(--gray-300);
-		text-decoration: none;
-	}
-
-	.link[aria-current] {
-		color: var(--gray-0);
-	}
-
-	.menu-footer {
-		--icon-size: var(--text-xl);
-		--icon-padding: 0.5rem;
-
-		display: flex;
-		justify-content: space-between;
-		gap: 0.75rem;
-		padding: 1.5rem 2rem 1.5rem 1.5rem;
-		background-color: var(--gray-999);
-		border-radius: 0 0 0.75rem 0.75rem;
-		box-shadow: var(--shadow-lg);
-	}
-
-	.socials {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.625rem;
-		font-size: var(--icon-size);
-	}
-
-	.social {
-		display: flex;
-		padding: var(--icon-padding);
-		text-decoration: none;
-		color: var(--accent-dark);
-		transition: color var(--theme-transition);
-	}
-
-	.social:hover,
-	.social:focus {
-		color: var(--accent-text-over);
-	}
-
-	.theme-toggle {
-		display: flex;
-		align-items: center;
-		height: calc(var(--icon-size) + 2 * var(--icon-padding));
-	}
-
-	@media (min-width: 50em) {
-		nav {
-			display: grid;
-			grid-template-columns: 1fr auto 1fr;
-			align-items: center;
-			padding: 2.5rem 5rem;
-			gap: 1rem;
-			position: fixed;
-			top: 0;
-			padding-left: 5rem;
-			padding-right: 5rem;
-
-		}
-
-		.menu-header {
-			padding: 0;
-		}
-
-		.site-title {
-			font-size: var(--text-lg);
-		}
-
-		.menu-content {
-			display: contents;
-		}
-
-		.nav-items {
-        /* Hapus atau komentari background dan shadow lama */
-        /* background: radial-gradient(var(--gray-900), var(--gray-800) 150%); */
-        /* box-shadow: var(--shadow-md); */
-        
-        /* 💡 Glassmorphism (Liquid Glass) Styles */
-        background-color: rgba(255, 255, 255, 0.1); /* Latar belakang semi-transparan (Putih) */
-        backdrop-filter: blur(10px); /* Efek buram (Wajib untuk Glass) */
-        -webkit-backdrop-filter: blur(10px); /* Dukungan Safari */
-        
-        /* Border halus */
-        border: 1px solid rgba(255, 255, 255, 0.2); 
-
-        /* Tetap pertahankan property yang sudah ada: */
-        position: relative;
-        flex-direction: row;
-        font-size: var(--text-sm);
-        border-radius: 999rem;
-        padding: 0.5rem 0.5625rem;
+        z-index: 9999;
+        position: fixed;
+        font-family: var(--font-brand);
+        font-weight: 500;
+        margin-bottom: 3.5rem;
+        top: 0;
+        width: 100%;
+        background-color: transparent;
     }
 
-		/* Hapus atau Nonaktifkan pseudo-element ::before yang membuat gradien stroke lama */
-		/*
+    .menu-header {
+        display: flex;
+        justify-content: space-between;
+        gap: 0.5rem;
+        padding: 1.5rem;
+    }
+
+    .site-title {
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+        line-height: 1.1;
+        color: var(--gray-0);
+        text-decoration: none;
+    }
+
+    .menu-button {
+        position: relative;
+        display: flex;
+        border: 0;
+        border-radius: 999rem;
+        padding: 0.5rem;
+        font-size: 1.5rem;
+        color: var(--gray-300);
+        background: radial-gradient(var(--gray-900), var(--gray-800) 150%);
+        box-shadow: var(--shadow-md);
+    }
+
+    .menu-button[aria-expanded="true"] {
+        color: var(--gray-0);
+        background: linear-gradient(180deg, var(--gray-600), transparent),
+            radial-gradient(var(--gray-900), var(--gray-800) 150%);
+    }
+
+    .menu-button[hidden] {
+        display: none;
+    }
+
+    .menu-button::before {
+        position: absolute;
+        inset: -1px;
+        content: "";
+        background: var(--gradient-stroke);
+        border-radius: 999rem;
+        z-index: -1;
+    }
+
+    .menu-content {
+        position: absolute;
+        left: 0;
+        right: 0;
+    }
+
+    .nav-items {
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        font-size: var(--text-md);
+        line-height: 1.2;
+        list-style: none;
+        padding: 2rem;
+        background-color: var(--gray-999);
+        border-bottom: 1px solid var(--gray-800);
+    }
+
+    .link {
+        display: inline-block;
+        color: var(--gray-300);
+        text-decoration: none;
+    }
+
+    .link[aria-current] {
+        color: var(--gray-0);
+    }
+
+    .menu-footer {
+        --icon-size: var(--text-xl);
+        --icon-padding: 0.5rem;
+
+        display: flex;
+        justify-content: space-between;
+        gap: 0.75rem;
+        padding: 1.5rem 2rem 1.5rem 1.5rem;
+        background-color: var(--gray-999);
+        border-radius: 0 0 0.75rem 0.75rem;
+        box-shadow: var(--shadow-lg);
+    }
+
+    .socials {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.625rem;
+        font-size: var(--icon-size);
+    }
+
+    .social {
+        display: flex;
+        padding: var(--icon-padding);
+        text-decoration: none;
+        color: var(--accent-dark);
+        transition: color var(--theme-transition);
+    }
+
+    .social:hover,
+    .social:focus {
+        color: var(--accent-text-over);
+    }
+
+    .theme-toggle {
+        display: flex;
+        align-items: center;
+        height: calc(var(--icon-size) + 2 * var(--icon-padding));
+    }
+
+    @media (min-width: 50em) {
+        nav {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            padding: 2.5rem 5rem;
+            gap: 1rem;
+            position: fixed;
+            top: 0;
+            padding-left: 5rem;
+            padding-right: 5rem;
+        }
+
+        .menu-header {
+            padding: 0;
+        }
+
+        .site-title {
+            font-size: var(--text-lg);
+        }
+
+        .menu-content {
+            display: contents;
+        }
+
+        .nav-items {
+            /* Hapus atau komentari background dan shadow lama */
+            /* background: radial-gradient(var(--gray-900), var(--gray-800) 150%); */
+            /* box-shadow: var(--shadow-md); */
+
+            /* 💡 Glassmorphism (Liquid Glass) Styles */
+            background-color: rgba(
+                255,
+                255,
+                255,
+                0.1
+            ); /* Latar belakang semi-transparan (Putih) */
+            backdrop-filter: blur(10px); /* Efek buram (Wajib untuk Glass) */
+            -webkit-backdrop-filter: blur(10px); /* Dukungan Safari */
+
+            /* Border halus */
+            border: 1px solid rgba(255, 255, 255, 0.2);
+
+            /* Tetap pertahankan property yang sudah ada: */
+            position: relative;
+            flex-direction: row;
+            font-size: var(--text-sm);
+            border-radius: 999rem;
+            padding: 0.5rem 0.5625rem;
+        }
+
+        /* Hapus atau Nonaktifkan pseudo-element ::before yang membuat gradien stroke lama */
+        /*
 		.nav-items::before {
 			display: none; 
 		}
 		*/
-		.link[aria-current='page'] {
-        /* Tetap pertahankan warna accent atau ubah agar terlihat bagus di atas background buram */
-        color: var(--accent-text-over); 
-        background-color: var(--accent-regular); /* Background oranye yang aktif */
-    	}
-		.dropdown-parent {
-        /* PENTING: Untuk menahan submenu di dalam parent */
-        position: relative; 
-        list-style: inside;
-        padding: 0;
+        .link[aria-current="page"] {
+            /* Tetap pertahankan warna accent atau ubah agar terlihat bagus di atas background buram */
+            color: var(--accent-text-over);
+            background-color: var(
+                --accent-regular
+            ); /* Background oranye yang aktif */
+        }
+        .dropdown-parent {
+            /* PENTING: Untuk menahan submenu di dalam parent */
+            position: relative;
+            list-style: inside;
+            padding: 0;
+        }
+
+        .submenu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            opacity: 0;
+            transition:
+                opacity 0.3s ease,
+                visibility 0.3s ease;
+            pointer-events: none;
+            visibility: hidden;
+            z-index: 1000;
+
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 0.75rem;
+            padding: 0.5rem 0;
+            min-width: 160px;
+            list-style: none;
+            margin: 0.5rem 0 0 0;
+            /* Add padding to create hover area between parent and submenu */
+            padding-top: 0.75rem;
+        }
+
+        .submenu.is-active {
+            display: block;
+            opacity: 1;
+            pointer-events: auto;
+            visibility: visible;
+        }
+
+        .sublink {
+            display: block;
+            padding: 0.5rem 1rem;
+            color: var(--gray-100);
+            text-decoration: none;
+            transition: background-color var(--theme-transition);
+            white-space: nowrap;
+        }
+
+        .sublink:hover,
+        .sublink:focus {
+            background-color: rgba(255, 255, 255, 0.15);
+            color: var(--accent-text-over);
+        }
+
+        .link {
+            padding: 0.5rem 1rem;
+            border-radius: 999rem;
+            transition:
+                color var(--theme-transition),
+                background-color var(--theme-transition);
+        }
+
+        .link:hover,
+        .link:focus {
+            color: var(--gray-100);
+            background-color: var(--accent-subtle-overlay);
+        }
+
+        .link[aria-current="page"] {
+            color: var(--accent-text-over);
+            background-color: var(--accent-regular);
+        }
+
+        .menu-footer {
+            --icon-padding: 0.375rem;
+
+            justify-self: flex-end;
+            align-items: center;
+            padding: 0;
+            background-color: transparent;
+            box-shadow: none;
+        }
+
+        .socials {
+            display: none;
+        }
     }
-    
-    .submenu {
-        display: none;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        opacity: 0;
-        transition: opacity 0.3s ease, visibility 0.3s ease;
-        pointer-events: none;
-        visibility: hidden;
-        z-index: 1000;
-        
-        background-color: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 0.75rem;
-        padding: 0.5rem 0;
-        min-width: 160px;
-        list-style: none;
-        margin: 0.5rem 0 0 0;
-        /* Add padding to create hover area between parent and submenu */
-        padding-top: 0.75rem;
+
+    @media (min-width: 60em) {
+        .socials {
+            display: flex;
+            justify-content: flex-end;
+            gap: 0;
+        }
     }
-    
-    .submenu.is-active {
-        display: block;
-        opacity: 1;
-        pointer-events: auto;
-        visibility: visible;
+    @media (forced-colors: active) {
+        .link[aria-current="page"] {
+            color: SelectedItem;
+        }
     }
-
-    .sublink {
-        display: block;
-        padding: 0.5rem 1rem;
-        color: var(--gray-100);
-        text-decoration: none;
-        transition: background-color var(--theme-transition);
-        white-space: nowrap;
-    }
-
-    .sublink:hover,
-    .sublink:focus {
-        background-color: rgba(255, 255, 255, 0.15);
-        color: var(--accent-text-over);
-    }
-
-		.link {
-			padding: 0.5rem 1rem;
-			border-radius: 999rem;
-			transition:
-				color var(--theme-transition),
-				background-color var(--theme-transition);
-		}
-
-		.link:hover,
-		.link:focus {
-			color: var(--gray-100);
-			background-color: var(--accent-subtle-overlay);
-		}
-
-		.link[aria-current='page'] {
-			color: var(--accent-text-over);
-			background-color: var(--accent-regular);
-		}
-
-		.menu-footer {
-			--icon-padding: 0.375rem;
-
-			justify-self: flex-end;
-			align-items: center;
-			padding: 0;
-			background-color: transparent;
-			box-shadow: none;
-		}
-
-		.socials {
-			display: none;
-		}
-	}
-
-	@media (min-width: 60em) {
-		.socials {
-			display: flex;
-			justify-content: flex-end;
-			gap: 0;
-		}
-	}
-	@media (forced-colors: active) {
-		.link[aria-current='page'] {
-			color: SelectedItem;
-		}
-	}
 </style>

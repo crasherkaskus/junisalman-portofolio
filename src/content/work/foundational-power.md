@@ -1,7 +1,7 @@
 ---
 title: Book Layout
 publishDate: 2025-11-17 12:21:00
-img: /assets/book/9.jpg
+img: ../../assets/book/power-final.jpg
 img_alt: purple book cover
 description: |
  This gym and fitness book focusing on how to train the lower body, the book layout itself design to ease the reader and pointing out the important part of the book
@@ -11,11 +11,13 @@ tags:
   - Ebook interior Design
 ---
 ## Project final product
-![gym book mockup 1](/assets/book/power.jpg)
-![gym book mockup 1](/assets/book/11.jpg)
-![gym book mockup 1](/assets/book/12.jpg)
-![gym book mockup 1](/assets/book/13.jpg)
-![gym book mockup 1](/assets/book/14.jpg)
+![gym book mockup 1](../../assets/book/9.jpg)
+![gym book mockup 1](../../assets/book/1.jpg)
+![gym book mockup 1](../../assets/book/2.jpg)
+![gym book mockup 1](../../assets/book/3.jpg)
+![gym book mockup 1](../../assets/book/4.jpg)
+![gym book mockup 1](../../assets/book/power-5.jpg)
+![gym book mockup 1](../../assets/book/power-6.jpg)
 ## Live Preview
 <div style="position: relative; width: 100%; height: 0; padding-top: 141.4286%;
  padding-bottom: 0; box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 0.9em; overflow: hidden;

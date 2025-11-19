@@ -2,7 +2,7 @@
 title: "The Perfectionist's Paradox"
 description: "When 'Good Enough' Never Feels Good Enough"
 pubDate: "Jul 15 2022"
-heroImage: "/public/assets/mid.jpg"
+heroImage: "../../assets/mid.jpg"
 ---
 
 <!DOCTYPE html>

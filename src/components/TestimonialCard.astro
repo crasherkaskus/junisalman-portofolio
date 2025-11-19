@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets";
 // Definisikan properti yang akan diterima komponen
 const { quote, name, title, avatar } = Astro.props;
 ---
@@ -8,7 +9,13 @@ const { quote, name, title, avatar } = Astro.props;
     <p>{quote}</p>
   </blockquote>
   <div class="client-info">
-    <img src={avatar} alt={name} class="client-avatar" width="60" height="60" />
+    <Image
+      src={avatar}
+      alt={name}
+      class="client-avatar"
+      width={60}
+      height={60}
+    />
     <div>
       <p class="client-name">{name}</p>
       <p class="client-title">{title}</p>

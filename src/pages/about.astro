@@ -1,20 +1,25 @@
 ---
-import ContactCTA from '../components/ContactCTA.astro';
-import Hero from '../components/Hero.astro';
-import BaseLayout from '../layouts/BaseLayout.astro';
+import ContactCTA from "../components/ContactCTA.astro";
+import Hero from "../components/Hero.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { Image } from "astro:assets";
+import profileWork from "../assets/profile-work.jpg";
 ---
 
-<BaseLayout title="About | Juni Salman" description="About Juni Salman The graphic designer">
+<BaseLayout
+	title="About | Juni Salman"
+	description="About Juni Salman The graphic designer"
+>
 	<div class="stack gap-20">
 		<main class="wrapper about">
 			<Hero
 				title="About"
 				tagline="Thank you for visiting! Scroll down to discover more about me and my background."
 			>
-				<img
-					width="1553"
-					height="873"
-					src="/assets/profile-work.jpg"
+				<Image
+					width={1553}
+					height={873}
+					src={profileWork}
 					alt="Juni working on his macbook to create amazing design"
 				/>
 			</Hero>
@@ -23,23 +28,42 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 				<h2 class="section-title">Background</h2>
 				<div class="content">
 					<p>
-						Professional Graphic Designer with 5+ years of experience crafting compelling visual content for digital and print media.
-						 I specialize in creating high-impact social media posts that drive engagement, alongside meticulously designed printed
-						  products that elevate brand presence. Beyond digital design, I’ve developed a strong expertise in book layout design—spanning 
-						  from e-books to professionally printed publications—ensuring visual harmony and reader-centric flow. I also partner with entrepreneurs 
-						  and businesses to craft polished, persuasive pitch decks that communicate vision with clarity and cinematic impact. 
-						  My approach blends technical precision with strategic storytelling, turning ideas into visuals that resonate.
+						Professional Graphic Designer with 5+ years of
+						experience crafting compelling visual content for
+						digital and print media. I specialize in creating
+						high-impact social media posts that drive engagement,
+						alongside meticulously designed printed products that
+						elevate brand presence. Beyond digital design, I’ve
+						developed a strong expertise in book layout
+						design—spanning from e-books to professionally printed
+						publications—ensuring visual harmony and reader-centric
+						flow. I also partner with entrepreneurs and businesses
+						to craft polished, persuasive pitch decks that
+						communicate vision with clarity and cinematic impact. My
+						approach blends technical precision with strategic
+						storytelling, turning ideas into visuals that resonate.
 					</p>
 					<p>
-						<b>Every design decision I make begins with a simple question:</b> What problem are we solving? Whether it’s boosting engagement on social media, 
-						clarifying a complex idea in a pitch deck, or guiding a reader through a book’s narrative, I don’t just create visuals—I craft solutions. 
-						My process is rooted in deep listening and strategic thinking, ensuring every element—from typography to color to layout—serves a purpose.
-						 I focus not on aesthetics alone, but on how design moves people, informs decisions, and delivers real results. 
-						 For me, great design isn’t seen—it’s felt, understood, and acted upon.
+						<b
+							>Every design decision I make begins with a simple
+							question:</b
+						> What problem are we solving? Whether it’s boosting engagement
+						on social media, clarifying a complex idea in a pitch deck,
+						or guiding a reader through a book’s narrative, I don’t just
+						create visuals—I craft solutions. My process is rooted in
+						deep listening and strategic thinking, ensuring every element—from
+						typography to color to layout—serves a purpose. I focus not
+						on aesthetics alone, but on how design moves people, informs
+						decisions, and delivers real results. For me, great design
+						isn’t seen—it’s felt, understood, and acted upon.
 					</p>
 					<p>
-						<b>If you’re looking for a designer who thinks beyond the pixels—someone who aligns visuals with purpose</b>—let’s start a conversation. 
-						I’d be glad to share a few relevant samples or offer a quick, no-pressure critique of your next project.
+						<b
+							>If you’re looking for a designer who thinks beyond
+							the pixels—someone who aligns visuals with purpose</b
+						>—let’s start a conversation. I’d be glad to share a few
+						relevant samples or offer a quick, no-pressure critique
+						of your next project.
 					</p>
 				</div>
 			</section>
@@ -52,7 +76,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 			<section>
 				<h2 class="section-title">Skills</h2>
 				<div class="content">
-					<p>Graphic Design, Ebook Layout Desain, Pitch-Deck presentation, Sosial Media Specialist</p>
+					<p>
+						Graphic Design, Ebook Layout Desain, Pitch-Deck
+						presentation, Sosial Media Specialist
+					</p>
 				</div>
 			</section>
 		</main>
